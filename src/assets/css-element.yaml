@@ -1,0 +1,8 @@
+darkmode:
+  background: "#606060"
+  color: "#ffffff"
+
+
+lightmode:
+  background: "#ffffff"
+  color: "#000000"
