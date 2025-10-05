@@ -5,7 +5,6 @@ lightmode:
   text-color: "#c0c0c0"
   quote-color: "#404040"
 
-
 darkmode:
   bg-primary: "#404040"
   bg-secondary: "#404040"
