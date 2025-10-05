@@ -1,17 +1,55 @@
-<script setup>
+<script lang="ts">
+let cssvar_dict_default = {
+  darkmode: [
+  ],
+  lightmode: [
+  ] 
+} ;
+
+</script>
+<script setup lang="ts">
 import { ref, onMounted } from "vue";
 
-import cssToggle from "@/assets/css-toggle.yaml";
+//import cssToggle from "@/assets/css-toggle.yaml";
+import cssToggle1 from "@/assets/css-toggle1.yaml";
+import cssToggle2 from "@/assets/css-toggle2.yaml";
+
 import cssElement from "@/assets/css-element.yaml";
 import { IconSunFilled } from "@tabler/icons-vue";
 import { IconMoonFilled } from "@tabler/icons-vue";
 import { IconMoon } from "@tabler/icons-vue";
 
-const props = defineProps(['document_id'])
+/*
+const props = defineProps({
+    model: { type: String, default: 'model2'},
+    document_id: String,
+    style_css:  { type: Object, default: cssElement},
+    css_var:  { type: Object, default: cssvar_dict_default}
+});
+*/
+
+const props = defineProps({
+    model: { type: String, default: 'model2'},
+    document_id: String,
+    style_css:  { type: Object, default: cssElement},
+    css_var:  { type: Object }
+});
 
 let doc = null;
 const toggle_ele = ref();
 const checkbox_id = "checkbox_" + props.document_id;
+
+//let toggle_color = "model1"
+let toggle_color = props.model;
+
+let toggle_color_css = null;
+
+if (toggle_color == "model1") {
+  toggle_color_css = cssToggle1;
+} else if (toggle_color == "model2") {
+  toggle_color_css = cssToggle2;
+}
+
 
 onMounted(() => {
   doc = document.getElementById(props.document_id);
@@ -24,34 +62,50 @@ const darkmode = ref(false);
 
 function enableDarkMode() {
     darkmode.value = true;
-    for (let [key, value] of Object.entries(cssToggle.darkmode)) {
+    for (let [key, value] of Object.entries(toggle_color_css.darkmode)) {
       toggle_ele.value.style.setProperty(`--${key}`, value);
     }
-    for (let [key, value] of Object.entries(cssElement.darkmode)) {
+if (!props.css_var) {
+    for (let [key, value] of Object.entries(props.style_css.darkmode)) {
       doc.style.setProperty(key, value);
     }
+} else {
+    for (let i = 0; i < props.css_var.darkmode.length; i++  ) {
+        let key = "";
+        let value = "";
+        for (let [k, v] of Object.entries(props.css_var.darkmode[i])) {
+	   if ( k == "name"  ) { key = v   ; continue }
+	   if ( k == "value" ) { value = v ; continue }
+	}
+	//console.log("setProperty", key, value);
+        doc.style.setProperty(key, value);
+    }
+}
   }
 
 function disableDarkMode() {
     darkmode.value = false;
-    for (let [key, value] of Object.entries(cssToggle.lightmode)) {
+    for (let [key, value] of Object.entries(toggle_color_css.lightmode)) {
       toggle_ele.value.style.setProperty(`--${key}`, value);
     }
-    for (let [key, value] of Object.entries(cssElement.lightmode)) {
+if (!props.css_var) {
+    for (let [key, value] of Object.entries(props.style_css.lightmode)) {
       doc.style.setProperty(key, value);
     }
+} else {
+    for (let i = 0; i < props.css_var.lightmode.length; i++  ) {
+        let key = "";
+        let value = "";
+        for (let [k, v] of Object.entries(props.css_var.lightmode[i])) {
+	   if ( k == "name"  ) { key = v   ; continue }
+	   if ( k == "value" ) { value = v ; continue }
+	}
+	//console.log("setProperty", key, value);
+        doc.style.setProperty(key, value);
+    }
+}
   }
 
-  // Initialise the dark mode depending on the user's preferences
-  /*
-  if (window?.matchMedia?.("(prefers-color-scheme:dark)")?.matches) {
-    darkmode.value = true;
-    enableDarkMode();
-  } else {
-    darkmode.value = false;
-    disableDarkMode();
-  }
-  */
 </script>
 
 <template>
@@ -63,11 +117,8 @@ function disableDarkMode() {
       class="checkbox"
     />
     <label :for="checkbox_id" class="label transition">
-    <!--
-      <span class="icon">🌙</span>
-      <span class="icon">☀️</span>
-      -->
-      <IconMoonFilled class="icon" style="color:#ffffff;"/>
+      <IconMoonFilled v-if="toggle_color == 'model1'" class="icon" style="color:#ffffff;"/>
+      <IconMoonFilled v-if="toggle_color == 'model2'" class="icon" style="color:#404040;"/>
       <IconSunFilled  class="icon" style="color:#404040;"/>
       <div :class="['toggle', 'transition', darkmode ? 'checked' : '']"></div>
     </label>
