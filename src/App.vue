@@ -36,10 +36,12 @@ let cssvar_dict = {
   darkmode: [
     { name: "--main-background", value: "green" },
     { name: "--main-color", value: "red" },
+    { name: "--my-radius", value: "30px" },
   ],
   lightmode: [
-    { name: "--main-background", value: "yellow" },
+    { name: "--main-background", value: "red" },
     { name: "--main-color", value: "blue" },
+    { name: "--my-radius", value: "10px" },
   ],
 };
 </script>
@@ -110,8 +112,9 @@ let cssvar_dict = {
 </template>
 
 <style scoped>
+/*
 :root {
-  --main-background: yellow;
+  --main-background: red;
   --main-color: blue;
   --my-radius: 30px;
   --font-size: 16px;
@@ -119,10 +122,20 @@ let cssvar_dict = {
   --main-gutter: 30px;
 
 }
+*/
+* {
+  --main-background: red;
+  --main-color: blue;
+  --my-radius: 0px;
+  --font-size: 16px;
+  --main-height: 250px;
+  --main-gutter: 30px;
+
+}
 .target-element {
   background: var(--main-background);
-  /* border-radius: calc(var(--main-radius) * 2);*/
-  border-radius: var(--my-radius);
+  border-radius: calc(var(--my-radius) * 2);
+  /* border-radius: var(--my-radius); */
   border: 2px solid red;
 
   color: var(--main-color);
