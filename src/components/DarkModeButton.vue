@@ -36,7 +36,6 @@ let doc = null;
 const toggle_ele = ref();
 const checkbox_id = "checkbox_" + props.document_id;
 
-//let toggle_color = "model1"
 let toggle_color = props.model;
 
 let toggle_color_css = null;
@@ -78,7 +77,6 @@ function enableDarkMode() {
           continue;
         }
       }
-      //console.log("setProperty", key, value);
       doc.style.setProperty(key, value);
     }
   }
@@ -107,7 +105,6 @@ function disableDarkMode() {
           continue;
         }
       }
-      //console.log("setProperty", key, value);
       doc.style.setProperty(key, value);
     }
   }
