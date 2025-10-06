@@ -30,7 +30,6 @@ const props = defineProps({
   document_id: String,
   style_css: { type: Object, default: cssElement },
   css_var: { type: Object },
-  css_var2: { type: Object },
 });
 
 let doc = null;
@@ -60,25 +59,10 @@ function enableDarkMode() {
   for (let [key, value] of Object.entries(toggle_color_css.darkmode)) {
     toggle_ele.value.style.setProperty(`--${key}`, value);
   }
-  if (!props.css_var && !props.css_var2) {
+  if (!props.css_var) {
     for (let [key, value] of Object.entries(props.style_css.darkmode)) {
       doc.style.setProperty(key, value);
     }
-  } else if (props.css_var2) {
-
-    for (let i = 0; i < props.css_var2.darkmode.length; i++) {
-        let line = props.css_var2.darkmode[i].trim().replace(';','');
-        //console.log(line);
-	let param = line.split(':');
-        let name = param[0].trim();
-        let value = param[1].trim();
-	//console.log("["+ name + "]", "[" +value +"]");
-        doc.style.setProperty(name, value);
-
-    }
-    //for (let [key, value] of Object.entries(props.style_css.darkmode)) {
-    //  doc.style.setProperty(key, value);
-    //}
   } else {
     for (let i = 0; i < props.css_var.darkmode.length; i++) {
       let key = "";
@@ -103,25 +87,10 @@ function disableDarkMode() {
   for (let [key, value] of Object.entries(toggle_color_css.lightmode)) {
     toggle_ele.value.style.setProperty(`--${key}`, value);
   }
-  if (!props.css_var && !props.css_var2) {
+  if (!props.css_var) {
     for (let [key, value] of Object.entries(props.style_css.lightmode)) {
       doc.style.setProperty(key, value);
     }
-  } else if (props.css_var2) {
-
-    for (let i = 0; i < props.css_var2.lightmode.length; i++) {
-        let line = props.css_var2.lightmode[i].trim().replace(';','');
-        //console.log(line);
-	let param = line.split(':');
-        let name = param[0].trim();
-        let value = param[1].trim();
-	//console.log("["+ name + "]", "[" +value +"]");
-        doc.style.setProperty(name, value);
-
-    }
-    //for (let [key, value] of Object.entries(props.style_css.lightmode)) {
-    //  doc.style.setProperty(key, value);
-    //}
   } else {
     for (let i = 0; i < props.css_var.lightmode.length; i++) {
       let key = "";

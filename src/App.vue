@@ -44,6 +44,20 @@ let cssvar_dict = {
     { name: "--my-radius", value: "10px" },
   ],
 };
+
+let cssvar_dict2 = {
+  darkmode: [
+    "--main-background : green ; " ,
+    "  --main-color      : red   " ,
+    "--my-radius       : 30px  " ,
+  ],
+  lightmode: [
+    "--main-background : red  " ,
+    " --main-color      : blue " ,
+    "--my-radius       : 10px " ,
+  ],
+};
+
 </script>
 
 <template>
@@ -106,6 +120,13 @@ let cssvar_dict = {
     <p>AAAAAA</p>
     <p>AAAAAA</p>
   </div>
+<h2>  :css_var  type2</h2>
+  <DarkModeButton document_id="doc5" :css_var2="cssvar_dict2" />
+  <div id="doc5" class="target-element">
+    <p>AAAAAA</p>
+    <p>AAAAAA</p>
+    <p>AAAAAA</p>
+  </div>
 <!--
 <DarkModeSwitch @switched="onSwitched" v-model="isDarkModeEnabled"/>
 -->
@@ -123,6 +144,7 @@ let cssvar_dict = {
 
 }
 */
+/*
 * {
   --main-background: red;
   --main-color: blue;
@@ -132,7 +154,15 @@ let cssvar_dict = {
   --main-gutter: 30px;
 
 }
+*/
+
 .target-element {
+  --main-background: red;
+  --main-color: blue;
+  --my-radius: 0px;
+  --font-size: 16px;
+  --main-height: 250px;
+  --main-gutter: 30px;
   background: var(--main-background);
   border-radius: calc(var(--my-radius) * 2);
   /* border-radius: var(--my-radius); */
